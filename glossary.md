@@ -1,6 +1,6 @@
 ---
 title: PayPal Payment Service
-summary: Top up account via PayPal
+summary: Business terms for top-up account via PayPal document
 authors:
     - Dzianis Kuziomkin
 date: 2024-10-27
