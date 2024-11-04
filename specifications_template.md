@@ -4,9 +4,6 @@ summary: Top up account via PayPal
 authors:
     - Dzianis Kuziomkin
 date: 2024-10-30
-hide:
-  - navigation
-  - footer
 ---
 
 # Introduction
