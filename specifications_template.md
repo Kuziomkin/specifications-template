@@ -160,7 +160,7 @@ config:
 ### Authorize API Consumer
 Authorization is the process of determining whether a client or user has the permission to access a specific resource or perform a specific action through an API. This is typically done by verifying that the client or user has the necessary permissions or privileges to access the resource or perform the action.
 
-**Diagram**
+#### Diagram
 ---
 
 ```mermaid
@@ -206,7 +206,7 @@ config:
 Top up a bank account via PayPal service means to transfer funds from a PayPal account to a bank account. <br>
 To top up a bank account via PayPal, the individual or business making the top-up will need to have a PayPal account and sufficient funds available in their account to complete the top-up.
 
-**Diagram**
+#### Diagram
 ---
 
 ```mermaid
