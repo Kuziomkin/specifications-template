@@ -237,7 +237,7 @@ config:
         BS ->>- UI: result(id, status, link)
     UI ->>- EU: redirect User <br/> to PayPal Authorization Webpage
     create participant Webpage
-    EU ->> Webpage
+    
             
 ```
 
