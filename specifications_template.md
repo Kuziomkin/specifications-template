@@ -27,7 +27,7 @@ Within six months of implementation, ten percent of Platform customers subscribe
 - The PayPal service will be available and reliable during the implementation period.
 - The integration of the PayPal service into the Payment Platform will be successful and will not cause any disruptions or issues.
 ## Limitations
-- The System must provide PayPal money transfer service via single Platform API. 
+- The System must provide PayPal money transfer service via a single Platform API. 
 
 ## User Classes and Characteristics
 - End Users - these are the individuals who will be using the system to make payments or receive payments through PayPal.
@@ -230,8 +230,12 @@ config:
       UI ->>+ BS: request to create the order
         BS ->>+ PP: POST /v2/transaction/payments <br/>//request to create the payment
         Note over PP, PAP: Generate Acess Token
-          PP ->>+ PAP: POST/v2/checkout/orders <br/>//request to create the order
-            PAP ->> PAP:fdfd
+            PP ->>+ PAP: POST/v2/checkout/orders <br/>//request to create the order
+                PAP ->> PAP: create order
+            PAP ->>- PP: HTTP 201 Created
+        PP ->>- BS: HTTP 201 Created
+    BS ->>- UI: result(id, status, link)
+            
 ```
 
 ||Top up account via PayPal|
