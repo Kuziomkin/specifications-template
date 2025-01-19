@@ -259,3 +259,42 @@ config:
 |**Main Flow**|01: End User enters amount and clicks on the button to top up account via PayPal <br> 02: User Interface sends request to Bank Server to create the order <br> 03: Bank Server sends request to Payment Platform to create the Payment <br> 04: Payment Platform sends request to PayPal Processing to create the order <br> 05: PayPal Processing creates the order <br> 06: PayPal processing returns to Payment Platform HTTP 201 Created code with order identifier, status and link to authorize payment <br> 07: Payment Platform returns to Bank Server HTTP 201 Created code with payment data including order identifier, status and link <br> 08: Bank Server returns to User Interface result with order identifier, status and link<br> 09: User Interface redirects End User to the link to authorize payment <br> 10: End User authorizes payment for the order <br> 11: Authorization Page authorizes payment for the order <br> 12: Authorization Page redirects back End User to the Banks User Interface <br> 13: End User is waiting payment processing <br> 14: User Interface sends request Bank Server to capture payment for order <br> 15: Bank Server sends request to Payment Platform to submit the payment <br> 16: Payment Platform sends request to PayPal Processing to capture payment for order <br> 17: PayPal Ptocessing transfers money from End User account to Bank PayPal account <br> 18: PayPal processing returns to Payment Platform HTTP 200 OK code with order identifier and status <br> 19: Payment Platform returns to Bank Server HTTP 200 OK code with payment data including order identifier and status <br> 20: Bank Server returns result to User Interface <br> 21: User Interface renders operation result to the End User|    
 |**Alternative and Negative Flows**| &mdash; Step 04 of the Main flow: Authentication failed due to invalid authentication credentials or a missing Authorization header => PayPal returns HTTP 401 Unauthorized => Payment Platform repeats Generate access token use case and request to PayPal <br> &mdash; Step 16 of the Main flow: Payer has not yet approved the Order for payment => PayPal returns HTTP 422 Unprocessable Entity => Payment Platform returns to Bank HTTP 422 Unprocessable Entity|
 |**Result**|Client successfully topped up account via PayPal|
+
+### Show Orders Details
+In cases where the system experiences a response timeout or misses transaction data, it must be able to retrieve order details from PayPal in order to ensure the integrity of the financial transactions.
+
+#### Diagram
+---
+
+```mermaid
+---
+config:
+  layout: dagre
+  look: classic
+  theme: neutral
+---
+  sequenceDiagram
+    autonumber
+    participant BS as Bank Server
+    box rgb(190,190,200) Platform
+    participant PP as Payment Platform
+    participant CD as Clients DB
+    end
+    participant PAP as PayPal Processing
+
+    BS ->>+ PP: GET /v1/transaction/payments/{order_id} <br/>//fetch a Payment resiurce using order_id
+        Note over PP, PAP: Generate Acess Token
+            PP ->>+ PAP: GET /v2/checkout/orders/{order_id} <br/>//show order details
+                PAP ->> PAP: find order by order_id
+            PAP ->>- PP: HTTP 200 OK (data)
+        PP ->>- BS: HTTP 200 OK (data)
+```
+
+||__Show Order Details__|
+|---|---|
+|**Participants**|Bank Server, Payment Platform, PayPal Processing|
+|**Trigger**|Bank wants to fetch order details|
+|**Diagram**|![image](./img/show_order_details.svg)|
+|**Main Flow**|01: Bank Server sends request to Payment Platform to fetch a payment resource by using the resource identifier <br> 02: Payment Platform sends to PayPal Processing request to show order details <br> 03: PayPal finds order by identifier <br> 04: PayPal returns to Payment Platform HTTP 200 OK code with order details <br> 05: Payment Platform returns to Bank Server HTTP 200 OK code with order details|    
+|**Alternative and Negative Flows**| &mdash; Step 02 of the Main flow : There is no order with requested ID => Bank Server gets HTTP 404 Not Found|
+|**Result**|Order details were provided|
