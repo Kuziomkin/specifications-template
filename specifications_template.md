@@ -232,9 +232,12 @@ config:
         Note over PP, PAP: Generate Acess Token
             PP ->>+ PAP: POST/v2/checkout/orders <br/>//request to create the order
                 PAP ->> PAP: create order
-            PAP ->>- PP: HTTP 201 Created
-        PP ->>- BS: HTTP 201 Created
-    BS ->>- UI: result(id, status, link)
+                PAP ->>- PP: HTTP 201 Created
+            PP ->>- BS: HTTP 201 Created
+        BS ->>- UI: result(id, status, link)
+    UI ->>- EU: redirect User <br/> to PayPal Authorization Page
+    create participant AP as Authorization Page
+    EU ->> AP
             
 ```
 
