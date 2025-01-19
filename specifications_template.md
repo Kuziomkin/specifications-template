@@ -237,7 +237,15 @@ config:
         BS ->>- UI: result(id, status, link)
     UI ->>- EU: redirect User <br/> to PayPal Authorization Webpage
     create participant Webpage
-    
+        EU ->>+ Webpage: authorize payment
+    Webpage ->>- EU: redirect back to the User Iterface
+    EU ->>+ BS: request to capture payment for order
+        BS ->>+ PP: POST /v2/checkout/orders/:orer_id/capture <br/>//request to capture the payment
+            PP ->>+ PAP: transfer money from End User to Bank PayPal account
+            PAP ->>- PP: HTTP 200 OK
+        PP ->>+ BS: HTTP 200 OK
+    BS ->>- UI: result (id, status)
+    UI ->>- EU: render operation result
             
 ```
 
