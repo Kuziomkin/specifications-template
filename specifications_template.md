@@ -283,7 +283,7 @@ config:
     end
     participant PAP as PayPal Processing
 
-    BS ->>+ PP: GET /v1/transaction/payments/{order_id} <br/>//fetch a Payment resiurce using order_id
+    BS ->>+ PP: GET /v1/transaction/payments/{order_id} <br/>//fetch a payment resource by using order_id
         Note over PP, PAP: Generate Acess Token
             PP ->>+ PAP: GET /v2/checkout/orders/{order_id} <br/>//show order details
                 PAP ->> PAP: find order by order_id
