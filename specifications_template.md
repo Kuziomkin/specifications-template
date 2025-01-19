@@ -235,9 +235,9 @@ config:
                 PAP ->>- PP: HTTP 201 Created
             PP ->>- BS: HTTP 201 Created
         BS ->>- UI: result(id, status, link)
-    UI ->>- EU: redirect User <br/> to PayPal Authorization Page
-    create participant "Authorization Page"
-    EU ->> "Authorization Page"
+    UI ->>- EU: redirect User <br/> to PayPal Authorization Webpage
+    create participant Webpage
+    EU ->> Webpage
             
 ```
 
