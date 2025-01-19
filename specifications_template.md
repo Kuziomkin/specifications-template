@@ -245,7 +245,7 @@ config:
                 PP ->>+ PAP: POST /v2/checkout/orders/:orer_id/capture <br/>//request to capture the payment
                     PAP ->> PAP: transfer money from End User to Bank PayPal account
                 PAP ->>- PP: HTTP 200 OK
-            PP ->>+ BS: HTTP 200 OK
+            PP ->>- BS: HTTP 200 OK
         BS ->>- UI: result (id, status)
     UI ->>- EU: render operation result
             
