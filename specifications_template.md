@@ -63,8 +63,8 @@ config:
             CO([Create Order])
             AP([Authorize Payment])
         end
-        click A "https://github.com/Kuziomkin/diagrams/blob/main/specification.md#Authorize-API-Consumer" "See Authorize API Consumer Use Case"
-        click T "https://github.com/Kuziomkin/diagrams/blob/main/specification.md#Top-up-account-via-PayPal" "See Top up account via PayPal"
+        click A "https://github.com/Kuziomkin/specifications-template/blob/main/specifications_template.md#Authorize-API-Consumer" "See Authorize API Consumer Use Case"
+        click T "https://github.com/Kuziomkin/specifications-template/blob/main/specifications_template.md#Top-up-account-via-PayPal" "See Top up account via PayPal"
 
         %% define relationships
         C --> A
