@@ -65,6 +65,7 @@ config:
         end
         click A "https://github.com/Kuziomkin/specifications-template/blob/main/specifications_template.md#Authorize-API-Consumer" "See Authorize API Consumer Use Case"
         click T "https://github.com/Kuziomkin/specifications-template/blob/main/specifications_template.md#Top-up-account-via-PayPal" "See Top up account via PayPal"
+        click S "https://github.com/Kuziomkin/specifications-template/blob/main/specifications_template.md#Show-Orders-Details" "See Show Orders Details"
 
         %% define relationships
         C --> A
@@ -294,7 +295,6 @@ config:
 |---|---|
 |**Participants**|Bank Server, Payment Platform, PayPal Processing|
 |**Trigger**|Bank wants to fetch order details|
-|**Diagram**|![image](./img/show_order_details.svg)|
 |**Main Flow**|01: Bank Server sends request to Payment Platform to fetch a payment resource by using the resource identifier <br> 02: Payment Platform sends to PayPal Processing request to show order details <br> 03: PayPal finds order by identifier <br> 04: PayPal returns to Payment Platform HTTP 200 OK code with order details <br> 05: Payment Platform returns to Bank Server HTTP 200 OK code with order details|    
 |**Alternative and Negative Flows**| &mdash; Step 02 of the Main flow : There is no order with requested ID => Bank Server gets HTTP 404 Not Found|
 |**Result**|Order details were provided|
